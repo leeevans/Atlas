@@ -3,12 +3,13 @@ define([
 	'knockout',
 	'jnj_chart',
 	'd3',
-  'ohdsi.util',
-	'appConfig',
+    'ohdsi.util',
+    'appConfig',
 	'facets',
 	'knockout-persist',
 	'css!styles/tabs.css',
 	'css!styles/buttons.css',
+    'extenders'
 ], function ($, ko, jnj_chart, d3, ohdsiUtil, config) {
 	var appModel = function () {
 
@@ -1589,6 +1590,7 @@ define([
 		self.currentConceptIdentifierList = ko.observable();
 		self.currentConceptSet = ko.observable();
 		self.currentConceptSetSource = ko.observable('repository');
+        self.currentConceptSetNegativeControls = ko.observable();
 		self.currentIncludedConceptIdentifierList = ko.observable();
 		self.searchResultsConcepts = ko.observableArray();
 		self.relatedConcepts = ko.observableArray();

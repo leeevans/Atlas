@@ -20,7 +20,11 @@ requirejs.config({
 		{
 			name: "circe",
 			location: "modules/circe"
-    }
+        },
+        {
+		    name: "extenders",
+		    location: "extenders"
+        }        
 	],
 	shim: {
 		"colorbrewer": {
@@ -82,6 +86,7 @@ requirejs.config({
 		"explore-cohort": "components/explore-cohort",
 		"r-manager": "components/r-manager",
 		"studyreport-manager": "components/studyreport-manager",
+        "negative-controls": "components/negative-controls",
 		"d3": "d3.min",
 		"d3_tip": "d3.tip",
 		"jnj_chart": "jnj.chart",
