@@ -1,0 +1,48 @@
+<div class="wrapperTitle" data-bind="visible:loading">
+	<i class="fa fa-refresh fa-spin"></i> Loading...
+</div>
+
+<div data-bind="visible:!loading()">
+	<div class="wrapperTitle">
+		<i class="fa fa-balance-scale"></i> Cohort Comparison
+	</div>
+
+	<div class="asset-heading">
+		<input type="text" data-bind="textInput: cohortComparison().name, css: { emptyInput: !(cohortComparison().name() && (cohortComparison().name().length > 0)) }"></input>
+	</div>
+
+	<ul class="nav nav-tabs">
+		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'overview' }, click: function() { $component.tabMode('overview') };"><a>Overview</a>
+		</li>
+		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'advanced' }, click: function() { $component.tabMode('advanced') };"><a>Advanced</a>
+		</li>
+		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'generate' }, click: function() { $component.tabMode('generate') };"><a>Generate</a>
+		</li>
+		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'results' }, click: function() { $component.tabMode('import') };"><a>Import</a>
+		</li>
+	</ul>
+
+	<div class="tab-content">
+		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'overview' }" class="tab-pane">
+			<div>
+				<input type="text" placeholder="treatment cohort" data-bind="textInput: cohortComparison().treatment">
+			</div>
+			<div>
+				<input type="text" placeholder="comparator cohort" data-bind="textInput: cohortComparison().comparator">
+			</div>
+			<div>
+				<input type="text" placeholder="outcome cohort" data-bind="textInput: cohortComparison().outcome">
+			</div>
+			<div>
+				<input type="text" placeholder="exclusions concept set" data-bind="textInput: cohortComparison().exclusions">
+			</div>
+			<div>
+				<input type="text" placeholder="time at risk" data-bind="textInput: cohortComparison().timeAtRisk">
+			</div>
+		</div>
+		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'generate' }" class="tab-pane">
+			<div data-bind="click:generateCohortComparison" class="btn btn-success btn-sm">Generate Cohort Comparison</div>
+		</div>
+	</div>
+
+</div>

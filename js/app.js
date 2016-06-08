@@ -151,7 +151,12 @@ define([
 						require(['r-manager'], function () {
 							self.currentView('r');
 						});
-					}
+					},
+					'/cohortcomparison/:cohortComparisonId:': function (cohortComparisonId) {
+						require(['cohort-comparison-manager', 'cohort-definition-browser'], function () {
+							self.currentView('cohortcomparison');
+						});
+					}					
 				}
 				self.router = new Router(routes).configure(routerOptions);
 

@@ -20,7 +20,7 @@
 	<link rel="stylesheet" type="text/css" href="js/styles/atlas.css">
 	<link rel="stylesheet" type="text/css" href="js/styles/chart.css">
 	<link rel="stylesheet" type="text/css" href="js/styles/achilles.css">
-  <!-- cartoon.css, maybe others, loaded dynamically -->
+	<!-- cartoon.css, maybe others, loaded dynamically -->
 
 	<title>ATLAS</title>
 	<!--Adobe Edge Runtime-->
@@ -74,7 +74,7 @@
 			</li>
 			<li>
 				<a href="#/datasources"><i class="fa fa-database"></i>Data Sources</a>
-			</li>	
+			</li>
 			<li>
 				<a href="#/search"><i class="fa fa-search"></i>Vocabulary</a>
 			</li>
@@ -89,6 +89,9 @@
 			</li>
 			<li>
 				<a href="#/configure"><i class="fa fa-cogs"></i>Configuration</a>
+			</li>
+			<li>
+				<a href="#/r"><i class="fa fa-registered"></i>R Services</a>
 			</li>
 			<li>
 				<a target="_blank" href="https://github.com/ohdsi/atlas/issues"><i class="fa fa-comment"></i>Feedback</a>
@@ -111,7 +114,7 @@
 			<div data-bind="if:pageModel.currentView()=='home'">
 				<home params="{model: pageModel}"></home>
 			</div>
-			
+
 			<div data-bind="if:pageModel.currentView()=='conceptsets'">
 				<conceptset-browser params="{model: pageModel}"></conceptset-browser>
 			</div>
@@ -164,6 +167,10 @@
 
 			<div data-bind="if:pageModel.currentView() == 'r'">
 				<r-manager></r-manager>
+			</div>
+
+			<div data-bind="if:pageModel.currentView() == 'cohortcomparison'">
+				<cohort-comparison-manager></cohort-comparison-manager>
 			</div>
 
 			<div data-bind="if: currentView() == 'configure'">
