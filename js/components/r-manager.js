@@ -5,7 +5,27 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 		self.nodes = ko.observableArray();
 		self.rsbInfo = ko.observable();
 		self.rserviPools = ko.observable();
-
+		self.rsbJobs = ko.observableArray();
+		self.selectedJob = ko.observable();
+		self.selectedJobData = ko.observable();
+		
+		self.jobOptions = {
+			Facets: [
+				{
+					'caption': 'Application',
+					'binding': function (o) {
+						return o.applicationName;
+					}
+				},
+				{
+					'caption': 'Success',
+					'binding': function (o) {
+						return o.success;
+					}
+				}
+			]
+		};
+		
 		self.options = {
 			Facets: [
 				{
@@ -15,7 +35,7 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 					}
 				}
 			]
-		};
+		};		
 
 		self.columns = [
 			{
@@ -38,7 +58,42 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 				data: 'lent_count'
 			}
 		];
+		
+		self.jobColumns = [
+			{
+				title: 'Job Id',
+				data: 'jobId'
+			},
+			{
+				title: 'Application',
+				data: 'applicationName'
+			},
+			{
+				title: 'Success',
+				data: 'success'
+			},
+			{
+				title: 'Created',
+				render: function (s, p, d) {
+					var date = new Date(d.resultTime);
+					return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+				}
+			}
+		];		
 
+		self.showJobDetails = function(d) {
+			$('#jobDetailModal').modal('show');
+			self.selectedJob(d);
+			
+			$.ajax({
+				url: 'http://hixbeta.jnj.com:8999/rsb/api/rest/result/TESTING/' + self.selectedJob().jobId + '.json',
+				method: 'GET',
+				success: function (response) {
+					self.selectedJobData(response);
+				}
+			});			
+		}
+		
 		self.loadNodes = function () {
 			$.ajax({
 				url: 'http://hixbeta.jnj.com:8999/rpooli/api/v1/nodes',
@@ -49,6 +104,30 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 			});
 		}
 
+		self.loadNodesConfig = function() {
+			$.ajax({
+				url: 'http://hixbeta.jnj.com:8999/rpooli/api/v1/config/r',
+				method: 'GET',
+				success: function (response) {
+					console.log(response);
+				}
+			});
+		}
+		
+		self.loadJobInfo = function() {
+			var ticks = new Date().getTime();
+			$.ajax({
+				url: 'http://hixbeta.jnj.com:8999/rsb/api/rest/results/TESTING?_=' + ticks,
+				method: 'GET',
+				headers: {
+					'Accept': 'application/vnd.rsb+json'
+				},
+				success: function (response) {
+					self.rsbJobs(response.results.result);
+				}
+			});
+		}
+			
 		self.loadSystemInfo = function () {
 			$.ajax({
 				url: 'http://hixbeta.jnj.com:8999/rsb/api/rest/system/info',
@@ -77,6 +156,7 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 
 		self.loadNodes();
 		self.loadSystemInfo();
+		self.loadJobInfo();
 	}
 
 	var component = {
