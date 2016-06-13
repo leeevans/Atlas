@@ -218,7 +218,7 @@ pre span.key {
 	color: #fff;
 	cursor: pointer;
 	text-align: center;
-	border-bottom: solid 1px #00435a;
+	border-bottom: solid 1px #888;
 }
 
 #wrapperLogo img {
@@ -260,7 +260,7 @@ div#wrapperMainWindowContainer {}
 	line-height: 36px;
 	padding: 0px 0px 0px 30px;
 	font-size: 14px;
-	/* border-bottom: solid 1px #ccc; */
+	border-bottom: solid 1px #ccc;
 	white-space: nowrap;
 }
 
@@ -926,7 +926,6 @@ pre {
 .form-control:focus {
 	outline: 1px;
 	outline-offset: 0px;
-	border: solid 1px #F9B813;
 	box-shadow: none;
 }
 

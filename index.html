@@ -82,30 +82,33 @@
 
 			<!-- ko if: pageModel.currentView() != 'cohortdefinition' -->
 			<div class="current-asset">
-				<a data-bind="attr: { href: '#/cohortdefinition/' + pageModel.currentCohortDefinition().id()}">
-					<i class="fa fa-chevron-left"></i><span data-bind="text: pageModel.currentCohortDefinition().name"></span>
-				</a>
-			</div>
-			<!-- /ko -->
-
-			<!-- ko if: pageModel.currentConceptSet() != null && pageModel.currentConceptSetSource() == 'cohort' -->
-			<div>
-				<i class="fa fa-shopping-cart"></i>
-				<a data-bind="attr: { href: '#/cohortdefinition/' + pageModel.currentCohortDefinition().id() + '/conceptset/' + pageModel.currentConceptSet().id + '/details'}, text:pageModel.currentConceptSet().name()"></a>
-				<span class="badge" data-bind="text:pageModel.selectedConcepts().length"></span>
-			</div>
-			<!-- /ko -->
-
-			<!-- /ko -->
-			<!-- ko if: pageModel.currentConceptSet() && pageModel.currentConceptSetSource() == 'repository'  -->
-			<div>
-				<!-- ko if: pageModel.currentConceptSetSource() == 'repository' -->
-				<a data-bind="attr: { href: '#/conceptset/' + pageModel.currentConceptSet().id + '/details'}, text:pageModel.currentConceptSet().name"></a>
+				<div>
+					<a data-bind="attr: { href: '#/cohortdefinition/' + pageModel.currentCohortDefinition().id()}">
+						<i class="fa fa-chevron-left"></i><span data-bind="text: pageModel.currentCohortDefinition().name"></span>
+					</a>
+				</div>
+				<!-- ko if: pageModel.currentConceptSet() != null && pageModel.currentConceptSetSource() == 'cohort' -->
+				<div>
+					<i class="fa fa-shopping-cart"></i>
+					<a data-bind="attr: { href: '#/cohortdefinition/' + pageModel.currentCohortDefinition().id() + '/conceptset/' + pageModel.currentConceptSet().id + '/details'}, text:pageModel.currentConceptSet().name()"></a>
+					<span class="badge" data-bind="text:pageModel.selectedConcepts().length"></span>
+				</div>
 				<!-- /ko -->
+			</div>
+			<!-- /ko -->
+			<!-- /ko -->
+
+			<!-- ko if: pageModel.currentConceptSet() && pageModel.currentConceptSetSource() == 'repository' && pageModel.currentView() != 'conceptset'  -->
+			<div class="current-asset">
+				<a data-bind="attr: { href: '#/conceptset/' + pageModel.currentConceptSet().id + '/details'}">
+					<i class="fa fa-chevron-left"></i>
+					<span data-bind="text:pageModel.currentConceptSet().name"></span>
+				</a>
 				<span class="badge" data-bind="text:pageModel.selectedConcepts().length"></span>
 			</div>
 			<!-- /ko -->
 			<!-- /ko -->
+
 			<div id="wrapperLoading" data-bind="if: currentView() == 'loading'">
 				<div class="wrapperTitle">
 					<i class="fa fa-refresh fa-spin"></i> Loading...
