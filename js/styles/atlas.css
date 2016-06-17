@@ -1,3 +1,9 @@
+cohort-comparison-manager label {
+	text-transform: uppercase;
+	color:#888;
+	margin: 10px 0px 0px 2px;
+}
+
 .btn.btn-sm {
 	padding-top:0px;
 	padding-bottom:0px;
@@ -218,7 +224,7 @@ pre span.key {
 	color: #fff;
 	cursor: pointer;
 	text-align: center;
-	border-bottom: solid 1px #888;
+	border-bottom: solid 1px #CCC;
 }
 
 #wrapperLogo img {
@@ -1259,7 +1265,6 @@ div#stage {
 	background-image: none;
 	border-radius: 0px;
 	color: #fff;
-	margin: 1px;
 }
 
 table.dataTable {

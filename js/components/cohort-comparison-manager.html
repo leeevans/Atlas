@@ -24,25 +24,51 @@
 
 	<div class="tab-content">
 		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'overview' }" class="tab-pane">
-			<div>
-				<input type="text" placeholder="treatment cohort" data-bind="textInput: cohortComparison().treatment">
-			</div>
-			<div>
-				<input type="text" placeholder="comparator cohort" data-bind="textInput: cohortComparison().comparator">
-			</div>
-			<div>
-				<input type="text" placeholder="outcome cohort" data-bind="textInput: cohortComparison().outcome">
-			</div>
-			<div>
-				<input type="text" placeholder="exclusions concept set" data-bind="textInput: cohortComparison().exclusions">
-			</div>
-			<div>
-				<input type="text" placeholder="time at risk" data-bind="textInput: cohortComparison().timeAtRisk">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8">
+						<div>
+							<label>treatment cohort</label>
+							<div class="input-group">
+								<input class="form-control" type="text" data-bind="textInput: cohortComparison().treatment" />
+								<span class="input-group-btn">
+        				<button class="btn btn-primary" type="button"><i class="fa fa-folder-open"></i></button>
+							</span>
+							</div>
+						</div>
+						<div>
+							<label>comparator cohort</label>
+							<div class="input-group">
+								<input class="form-control" type="text" data-bind="textInput: cohortComparison().comparator" />
+								<span class="input-group-btn">
+        				<button class="btn btn-primary" type="button"><i class="fa fa-folder-open"></i></button>
+							</span>
+							</div>
+						</div>
+						<div>
+							<label>outcome cohort</label>
+							<div class="input-group">
+								<input class="form-control" type="text" data-bind="textInput: cohortComparison().outcome" />
+								<span class="input-group-btn">
+        				<button class="btn btn-primary" type="button"><i class="fa fa-folder-open"></i></button>
+							</span>
+							</div>
+						</div>
+						<div>
+							<label>exclusions</label>
+							<div class="input-group">
+								<input class="form-control" type="text" data-bind="textInput: cohortComparison().exclusions" />
+								<span class="input-group-btn">
+        				<button class="btn btn-primary" type="button"><i class="fa fa-folder-open"></i></button>
+							</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
 			</div>
 		</div>
 		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'generate' }" class="tab-pane">
 			<div data-bind="click:generateCohortComparison" class="btn btn-success btn-sm">Generate Cohort Comparison</div>
 		</div>
 	</div>
-
-</div>
