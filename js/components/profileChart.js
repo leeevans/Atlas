@@ -7,7 +7,7 @@ define(['knockout','d3', 'lodash', 'D3-Labeler/labeler'], function (ko, d3, _) {
 			bottom: 30,
 			left: 0
 		};
-	var vizHeight = 270;
+	var vizHeight = 240;
 	var width = 900;
 	//var width = minWidth - margin.left - margin.right;
 
@@ -47,13 +47,17 @@ define(['knockout','d3', 'lodash', 'D3-Labeler/labeler'], function (ko, d3, _) {
 		update: function (element, valueAccessor, allBindingsAccessor) {
 			//width = Math.max(minWidth, element.offsetWidth - margin.left - margin.right);
 			var va = valueAccessor();
-			if (va.showing()) {
-				var svg = categoryScatterPlot(element, va.recs(), 
-														rectangle,
-													 null, va.zoomFilter);
-				if (va.allRecs.length != va.recs().length)
-					inset(svg, va.allRecs, va.recs(), va.zoomFilter);
-			}
+			width = element.offsetWidth;
+			vizHeight = (window.innerHeight - 150) / (va.short ? 2 : 1) - margin.top - margin.bottom;
+			va.aspectRatio((vizHeight + margin.top + margin.bottom) / width);
+
+			if (width < 100)
+				return;
+			var svg = categoryScatterPlot(element, va.recs(), 
+													rectangle,
+												 null, va.zoomFilter);
+			if (va.allRecs.length != va.recs().length)
+				inset(svg, va.allRecs, va.recs(), va.zoomFilter);
 		}
 	};
 	function categoryScatterPlot(element, points, 
@@ -116,14 +120,10 @@ define(['knockout','d3', 'lodash', 'D3-Labeler/labeler'], function (ko, d3, _) {
 			.on("brushend", function() {
 				focusTip.hide();
 				if (brush.empty()) {
-					//console.log(`empty brush setting zoomFilter to null`);
 					zoomFilter(null);
 				} else {
-					//console.log(`changing zoomFilter from ${zoomFilter()} to ${brush.extent()}`);
 					zoomFilter(brush.extent());
 				}
-				//zoomFilter.notifySubscribers();
-				//holdBrushExtent(brush.extent());
 			});
 
 		svg.call(focusTip);
@@ -184,6 +184,21 @@ define(['knockout','d3', 'lodash', 'D3-Labeler/labeler'], function (ko, d3, _) {
 			.classed('point', true)
 			.on('mouseover', focusTip.show)
 			.on('mouseout', focusTip.hide)
+			/*
+			// these stubs don't do anything useful yet but
+			// are here to allow fetching detailed data on
+			// prolonged hover over profile point issue #143
+			.on('mouseenter', function(d) {
+				$(this).data('timeout', setTimeout(()=>{
+					$(this).data(null);
+				}, 500));
+			})
+			.on('mouseleave', function() {
+				let timeout = $(this).data('timeout');
+				if (timeout)
+					clearTimeout(timeout);
+			})
+			*/
 			.each(pointFunc)
 
 		pointGs.on('mousedown', function(){ // http://wrobstory.github.io/2013/11/D3-brush-and-tooltip.html
@@ -313,7 +328,7 @@ define(['knockout','d3', 'lodash', 'D3-Labeler/labeler'], function (ko, d3, _) {
 			var zoomDays = zoomFilter()[1] - zoomFilter()[0];
 			var edges = [{x: ixScale(zoomFilter()[0]), 
 										width: ixScale(zoomDays) - ixScale(0)}];
-			//console.log(zoomFilter(), zoomDays, edges);
+
 			var insetZoom = g
 												.selectAll('rect.insetZoom')
 												.data(edges)
