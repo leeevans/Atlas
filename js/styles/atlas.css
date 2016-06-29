@@ -1,28 +1,27 @@
-cohort-comparison-manager label {
-	text-transform: uppercase;
-	color:#888;
-	margin: 10px 0px 0px 2px;
+table.cohort-generate-sources {
+	width:100%;
+	border-bottom: solid 1px #888;
 }
 
-.btn.btn-sm {
-	padding-top:0px;
-	padding-bottom:0px;
-	margin-top:0px;
-	line-height:25px
-}
-.asset-heading {
-	background-color: #333333;
-	padding: 10px;
-	white-space: nowrap;
-	color: #fff;
-	font-size: 14px;
+table.cohort-generate-sources td {
+	padding: 3px;
+	line-height: 28px;
 }
 
-body.splash {
-	font-size: 12px;
-	margin: 0px;
-	padding: 0px;
-	background: none;
+table.cohort-generate-sources tbody {
+	display:block;
+	max-height:210px;
+	overflow: auto;
+}
+
+table.cohort-generate-sources thead, table.cohort-generate-sources tbody tr {
+	display:table;
+	width:100%;
+	table-layout:fixed;
+}
+
+table.cohort-generate-sources thead {
+	width: calc(100%-1em)
 }
 
 .breadcrumb-container {
@@ -35,20 +34,28 @@ body.splash {
 	height: 32px;
 }
 
-.breadcrumb-container a {
-    color: #ccc;
+.btn.btn-sm {
+	padding-top:0px;
+	padding-bottom:0px;
+	margin-top:0px;
+	line-height:25px
+}
+.asset-heading {
+	background-color: #333333;
+	padding: 7px;
+	white-space: nowrap;
+	color: #fff;
+	font-size: 14px;
 }
 
-.breadcrumb-container i.fa.fa-chevron-left {
-    font-size: 10px;
-}
-
-.breadcrumb-container i.fa.fa-chevron-right {
-    font-size: 10px;
+body.splash {
+	font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+	background: none;
 }
 
 body {
-	font-family: Roboto;
 	font-size: 12px;
 }
 
@@ -56,7 +63,7 @@ body {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	width: 200px;
+	width: 150px;
 	bottom: 0px;
 	background-color: #003142;
 	border-right: solid 1px #888;
@@ -123,7 +130,7 @@ body {
 
 .linkish {
 	text-decoration: underline;
-	color: #337ab7;
+	color: #0070dd;
 	cursor: pointer;
 }
 
@@ -259,7 +266,7 @@ pre span.key {
 #wrapperMainWindow {
 	position: absolute;
 	/* border-left: solid 1px #ccc; */
-	left: 199px;
+	left: 149px;
 	top: 0px;
 	right: 0px;
 	display: none;
@@ -478,7 +485,7 @@ th .fa {
 }
 
 td .fa {
-	font-size: 12px;
+	font-size: 14px;
 }
 
 table.datatable thead th {
@@ -566,6 +573,10 @@ td.select .fa-check-circle.selected {
 	padding-right: 7px;
 	font-size: 11px;
 	border-bottom: 1px solid #ccc;
+}
+
+.configureSourceTable tr.selected {
+	background-color: #f8b88f;	
 }
 
 th {
@@ -697,8 +708,9 @@ ul.ColVis_collection li {
 	top:0px;
 	left: 0px;
 	width:5px;
-	font-size:12px;
-	padding-left:4px;
+	font-size: 9px;
+	padding-left: 7px;
+	padding-right: 7px;
 }
 
 #wrapperHierarchyAnchor {
@@ -954,6 +966,7 @@ pre {
 .form-control:focus {
 	outline: 1px;
 	outline-offset: 0px;
+	border: solid 1px #F9B813;
 	box-shadow: none;
 }
 
@@ -1123,9 +1136,12 @@ ul.nav.nav-tabs {
 
 .badge {
 	border-radius: 10px;
-	background-color: #F19119;
-	font-size: .8em;
+	background-color: #eee;
+	font-size: 10px;
 	font-weight: normal;
+	padding: 1px 5px;
+	color: #000;
+	line-height: 12px;
 }
 
 .container .jumbotron {
@@ -1287,6 +1303,7 @@ div#stage {
 	background-image: none;
 	border-radius: 0px;
 	color: #fff;
+	/* margin: 1px; */
 }
 
 table.dataTable {
@@ -1645,8 +1662,8 @@ textarea.code {
 }
 
 #wrapperLeftMenu li {
-    border-bottom: 1px solid #00435a;
-    padding: 2px;
+    border-bottom: solid 1px #333;
+    padding: 3px;
 }
 
 .asset-heading input {
@@ -1668,14 +1685,14 @@ textarea.code {
 	border-bottom-color: #AAAAAA;
 }
 
-div.current-asset {
-	background-color:	#444;
-	border-bottom: solid 1px #666;
-	padding: 5px 0px 2px 12px;
+li.current-asset {
+	background-color:	#ccc;
+	border-bottom: solid 1px #F19119;
+	padding: 2px 0px 2px 10px;
 }
 
-div.current-asset a {
-	color:#fff;
+#wrapperLeftMenu li.current-asset a {
+	color:#000;
 }
 
 .configureSourceTable i.fa.fa-spinner.fa-spin {
@@ -1833,10 +1850,26 @@ cohort-expression-editor .fa.fa-ban {
 }
 
 
-.modal-header button.close {
-    color: #fff;
+#wrapperLeftMenu li:hover {
+    background-color: #093646;
 }
 
-cohort-comparison-manager .modal-dialog {
-    width: 90%;
+#wrapperLeftMenu li.current-asset:hover {
+    background-color: #fff;
+}
+
+.breadcrumb-container a {
+    color: #ccc;
+}
+
+.breadcrumb-container i.fa.fa-chevron-left {
+    font-size: 10px;
+}
+
+.breadcrumb-container i.fa.fa-chevron-right {
+    font-size: 10px;
+}
+
+table.cohort-generate-sources tr:hover {
+    background-color: #eee;
 }
