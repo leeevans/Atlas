@@ -61,6 +61,9 @@
 				<a href="#/cohortdefinitions"><i class="fa fa-users"></i>Cohorts</a>
 			</li>
 			<li>
+				<a href="#/cohortcomparisons"><i class="fa fa-balance-scale"></i>Cohort Comparisons</a>
+			</li>
+			<li>
 				<a href="#/jobs"><i class="fa fa-tasks"></i>Jobs</a>
 			</li>
 			<li>
@@ -163,11 +166,13 @@
 				<profile-manager params="services: pageModel.services"></profile-manager>
 			</div>
 
-			<analytics-manager data-bind="if:pageModel.currentView()== 'analytics'" params="{model: pageModel}"></analytics-manager>
-
 			<div data-bind="if:pageModel.currentView() == 'feasibilities'">
 				<feasibility-manager></feasibility-manager>
 			</div>
+			
+			<div data-bind="if:pageModel.currentView() == 'cohortcomparisons'">
+				<cohort-comparison-browser></cohort-comparison-browser>
+			</div>			
 
 			<div data-bind="if:pageModel.currentView() == 'feasibility'">
 				<feasibility-analyzer params="services: pageModel.services, feasibilityId: pageModel.feasibilityId"></feasibility-analyzer>
@@ -178,7 +183,7 @@
 			</div>
 
 			<div data-bind="if:pageModel.currentView() == 'cohortcomparison'">
-				<cohort-comparison-manager></cohort-comparison-manager>
+				<cohort-comparison-manager params="currentCohortComparisonId:pageModel.currentCohortComparisonId"></cohort-comparison-manager>
 			</div>
 
 			<div data-bind="if: currentView() == 'configure'">

@@ -25,6 +25,28 @@ body.splash {
 	background: none;
 }
 
+.breadcrumb-container {
+	background-color:#333;
+	color:#fff;
+	border-bottom: solid 1px #ccc;
+	padding-left: 10px;
+	line-height: 32px;
+	font-size: 12px;
+	height: 32px;
+}
+
+.breadcrumb-container a {
+    color: #ccc;
+}
+
+.breadcrumb-container i.fa.fa-chevron-left {
+    font-size: 10px;
+}
+
+.breadcrumb-container i.fa.fa-chevron-right {
+    font-size: 10px;
+}
+
 body {
 	font-family: Roboto;
 	font-size: 12px;
@@ -1808,4 +1830,13 @@ select.mediumInputField
 
 cohort-expression-editor .fa.fa-ban {
     font-size: 20px;
+}
+
+
+.modal-header button.close {
+    color: #fff;
+}
+
+cohort-comparison-manager .modal-dialog {
+    width: 90%;
 }

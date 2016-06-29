@@ -1,4 +1,4 @@
-define(['knockout', 'text!./r-manager.html'], function (ko, view) {
+define(['knockout', 'text!./r-manager.html','appConfig'], function (ko, view, config) {
 	function rManager(params) {
 		var self = this;
 		self.model = params.model;
@@ -86,7 +86,7 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 			self.selectedJob(d);
 			
 			$.ajax({
-				url: 'http://hixbeta.jnj.com:8999/rsb/api/rest/result/TESTING/' + self.selectedJob().jobId + '.json',
+				url: config.rServicesHost + 'rsb/api/rest/result/TESTING/' + self.selectedJob().jobId + '.json',
 				method: 'GET',
 				success: function (response) {
 					self.selectedJobData(response);
@@ -96,7 +96,7 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 		
 		self.loadNodes = function () {
 			$.ajax({
-				url: 'http://hixbeta.jnj.com:8999/rpooli/api/v1/nodes',
+				url: config.rServicesHost + 'rpooli/api/v1/nodes',
 				method: 'GET',
 				success: function (response) {
 					self.nodes(response.nodes);
@@ -106,7 +106,7 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 
 		self.loadNodesConfig = function() {
 			$.ajax({
-				url: 'http://hixbeta.jnj.com:8999/rpooli/api/v1/config/r',
+				url: config.rServicesHost + 'rpooli/api/v1/config/r',
 				method: 'GET',
 				success: function (response) {
 					console.log(response);
@@ -117,7 +117,7 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 		self.loadJobInfo = function() {
 			var ticks = new Date().getTime();
 			$.ajax({
-				url: 'http://hixbeta.jnj.com:8999/rsb/api/rest/results/TESTING?_=' + ticks,
+				url: config.rServicesHost + 'rsb/api/rest/results/TESTING?_=' + ticks,
 				method: 'GET',
 				headers: {
 					'Accept': 'application/vnd.rsb+json'
@@ -130,7 +130,7 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 			
 		self.loadSystemInfo = function () {
 			$.ajax({
-				url: 'http://hixbeta.jnj.com:8999/rsb/api/rest/system/info',
+				url: config.rServicesHost + 'rsb/api/rest/system/info',
 				method: 'GET',
 				headers: {
 					'Accept': 'application/vnd.rsb+json'
@@ -140,19 +140,6 @@ define(['knockout', 'text!./r-manager.html'], function (ko, view) {
 				}
 			});
 		}
-
-		/*
-		$.ajax({
-			url: 'http://hixbeta.jnj.com:8999/rsb/api/rest/admin/system/rservi_pools',
-			method: 'GET',
-			headers: {
-				'Accept' : 'application/vnd.rsb+json'
-			},
-			success: function (response) {
-				self.rserviPools(response);
-			}
-		});
-		*/
 
 		self.loadNodes();
 		self.loadSystemInfo();
