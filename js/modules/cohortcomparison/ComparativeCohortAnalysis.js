@@ -20,6 +20,8 @@ define(function (require, exports) {
 		self.outcomeCaption = ko.observable(data.outcomeCaption || null);
 		self.outcomeId = ko.observable(data.outcomeId || null);
 		
+		self.timeAtRisk = ko.observable(data.timeAtRisk||null);
+		
 	}
 	return ComparativeCohortAnalysis;
 });

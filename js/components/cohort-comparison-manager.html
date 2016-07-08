@@ -22,9 +22,20 @@
 		</li>
 		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'generate' }, click: function() { $component.tabMode('generate') };"><a>Generate</a>
 		</li>
+		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'executions' }, click: function() { $component.tabMode('executions') };"><a>Executions</a>
+		</li>
 	</ul>
 
 	<div class="tab-content">
+		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'executions' }" class="tab-pane">
+			<faceted-datatable data-bind="visible:loading()==false" params="reference:executions, columns: executionColumns, options:executionOptions, rowClick:executionSelected">
+			</faceted-datatable>
+			
+			<faceted-datatable data-bind="visible:loading()==false" params="reference:covariates, columns: covariateColumns, options:covariateOptions, rowClick:covariateSelected">
+			</faceted-datatable>
+			
+		</div>
+
 		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'overview' }" class="tab-pane">
 			<div class="row">
 				<div class="col-md-8">
@@ -69,7 +80,7 @@
 			</div>
 		</div>
 		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'generate' }" class="tab-pane">
-			<div data-bind="click:generateCohortComparison" class="btn btn-success btn-sm">Generate Cohort Comparison</div>
+			<div data-bind="click:executeCohortComparison" class="btn btn-success btn-sm">Generate Cohort Comparison</div>
 		</div>
 	</div>
 

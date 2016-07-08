@@ -3,8 +3,107 @@ define(['knockout', 'text!./cohort-comparison-manager.html', 'webapi/CohortDefin
 		var self = this;
 		self.config = config;
 		self.loading = ko.observable(true);
+		self.executions = ko.observableArray();
+		self.covariates = ko.observableArray();
+		
+		self.executionColumns = [
+			{
+				title: 'Id',
+				data: 'id'
+			},
+			{
+				title: 'Status',
+				data: 'executionStatus'
+			},
+			{
+				title: 'Source',
+				data: 'sourceKey'
+			},
+			{
+				title: 'Started',
+				render: function (s, p, d) {
+					return new Date(d.executed).toLocaleDateString();
+				}
+			},
+			{
+				title: 'Duration',
+				data: 'duration'
+			}
+		];		
+		
+		self.executionOptions = {
+			Facets: [
+				{
+					'caption': 'Started',
+					'binding': function (o) {
+						var daysSinceModification = (new Date().getTime() - new Date(o.executed).getTime()) / 1000 / 60 / 60 / 24;
+						if (daysSinceModification < 7) {
+							return 'This Week';
+						} else if (daysSinceModification < 14) {
+							return 'Last Week';
+						} else {
+							return '2+ Weeks Ago';
+						}
+					}
+				},
+				{
+					'caption': 'Status',
+					'binding': function (o) {
+						return o.executionStatus;
+					}
+				}
+			]
+		};		
+		
+		self.covariateColumns = [
+			{
+				title: 'Id',
+				data: 'id'
+			},
+			{
+				title: 'Name',
+				data: 'name'
+			},
+			{
+				title: 'Value',
+				data: 'value'
+			}
+		];		
+		
+		self.covariateOptions = {
+			Facets: [
+				{
+					'caption': 'Value',
+					'binding': function (o) {
+						if (o.value > 2) {
+							return '> 2';
+						} else if (o.value < -2) {
+							return '< -2';
+						} else {
+							return 'Other';
+						}
+					}
+				}
+			]
+		};			
+		
 		self.tabMode = ko.observable('overview');
 		self.cohortComparisonId = params.currentCohortComparisonId;
+		
+		self.covariateSelected = function(d) {
+			console.log(d);
+		}
+		
+		self.executionSelected = function(d) {
+			$.ajax({
+				url: config.services[0].url + 'comparativecohortanalysis/execution/' + d.id + '/psmodel',
+				method: 'GET',
+				contentType: 'application/json',
+				success: function (response) {
+					self.covariates(response.covariates);
+				}
+			});	
+		}
 		
 		self.cohortSelected = function (id) {
 			$('cohort-comparison-manager #modalCohortDefinition').modal('hide');
@@ -84,22 +183,14 @@ define(['knockout', 'text!./cohort-comparison-manager.html', 'webapi/CohortDefin
 			$('cohort-comparison-manager #modalConceptSet').modal('show');
 		}
 
-		self.generateCohortComparison = function () {
-			var request = {
-				treatment: self.cohortComparison().treatment(),
-				comparator: self.cohortComparison().comparator(),
-				outcome: self.cohortComparison().outcome(),
-				exclusion: self.cohortComparison().exclusion(),
-				timeAtRisk: self.cohortComparison().timeAtRisk(),
-				sourceKey: 'OPTUM-PDW'
-			};
-
+		self.executeCohortComparison = function () {
 			var generatePromise = $.ajax({
-				url: config.services[0].url + 'rsb/cohortcomparison',
-				data: JSON.stringify(request),
-				method: 'POST',
+				url: config.services[0].url + 'comparativecohortanalysis/' + self.cohortComparisonId() + '/execute/' + 'OPTUM-PDW',
+				method: 'GET',
 				contentType: 'application/json',
-				success: function (c, status, xhr) {}
+				success: function (c, status, xhr) {
+					console.log(c);
+				}
 			});
 		};
 
@@ -116,6 +207,15 @@ define(['knockout', 'text!./cohort-comparison-manager.html', 'webapi/CohortDefin
 					self.loading(false);
 				}
 			});
+			
+			$.ajax({
+				url: config.services[0].url + 'comparativecohortanalysis/' + self.cohortComparisonId() + '/executions',
+				method: 'GET',
+				contentType: 'application/json',
+				success: function (response) {
+					self.executions(response);
+				}
+			});			
 		}
 	}
 
