@@ -2,7 +2,7 @@
 	<i class="fa fa-balance-scale"></i> Cohort Comparisons
 </div>
 
-<span class="pull-right btn btn-sm btn-primary" data-bind="click:$component.newCohortComparison, css: {disabled: currentCohortComparison != undefined}">New Cohort Comparison</span>
+<span class="pull-right btn btn-sm btn-primary" data-bind="click:$component.newCohortComparison">New Cohort Comparison</span>
 
 <faceted-datatable data-bind="visible:loading()==false" params="orderColumn: 3, reference:reference, columns: columns, options:options, rowClick:rowClick">
 </faceted-datatable>

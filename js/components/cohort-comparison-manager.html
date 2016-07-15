@@ -16,27 +16,83 @@
 	</div>
 
 	<ul class="nav nav-tabs">
-		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'overview' }, click: function() { $component.tabMode('overview') };"><a>Overview</a>
-		</li>
-		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'advanced' }, click: function() { $component.tabMode('advanced') };"><a>Advanced</a>
+		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'specification' }, click: function() { $component.tabMode('specification') };"><a>Analysis Specification</a>
 		</li>
 		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'generate' }, click: function() { $component.tabMode('generate') };"><a>Generate</a>
 		</li>
-		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'executions' }, click: function() { $component.tabMode('executions') };"><a>Executions</a>
+		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'executions' }, click: function() { $component.tabMode('executions') };"><a>Results</a>
 		</li>
 	</ul>
 
 	<div class="tab-content">
 		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'executions' }" class="tab-pane">
-			<faceted-datatable data-bind="visible:loading()==false" params="reference:executions, columns: executionColumns, options:executionOptions, rowClick:executionSelected">
+			<faceted-datatable params="{orderColumn:3, reference:executions, columns: executionColumns, options:executionOptions, rowClick:executionSelected}">
 			</faceted-datatable>
-			
-			<faceted-datatable data-bind="visible:loading()==false" params="reference:covariates, columns: covariateColumns, options:covariateOptions, rowClick:covariateSelected">
-			</faceted-datatable>
-			
-		</div>
 
-		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'overview' }" class="tab-pane">
+			<div data-bind="visible: $component.currentExecutionId()">
+				<div class="heading">
+					Execution <span data-bind="text:currentExecutionId"></span> AUC: <span data-bind="text:currentExecutionAuc"></span>
+				</div>
+
+				<ul class="nav nav-pills">
+					<li role="presentation" data-bind="css: { active: $component.pillMode() == 'covariates' }, click: function() { $component.pillMode('covariates') };"><a>Covariates</a>
+					</li>
+					<li role="presentation" data-bind="css: { active: $component.pillMode() == 'psd' }, click: function() { $component.pillMode('psd') };"><a>PS Distribution</a>
+					</li>
+					<li role="presentation" data-bind="css: { active: $component.pillMode() == 'matched' }, click: function() { $component.pillMode('matched') };"><a>Matched PS Distribution</a>
+					</li>
+					<li role="presentation" data-bind="css: { active: $component.pillMode() == 'attrition' }, click: function() { $component.pillMode('attrition') };"><a>Attrition</a>
+					</li>
+					<li role="presentation" data-bind="css: { active: $component.pillMode() == 'balance' }, click: function() { $component.pillMode('balance') };"><a>Balance</a>
+					</li>
+				</ul>
+
+				<div class="tab-content">
+					<div role="tabpanel" data-bind="visible: $component.pillMode() == 'covariates'">
+						<faceted-datatable params="{orderColumn:2, reference:covariates, columns: covariateColumns, options:covariateOptions, rowClick:covariateSelected}">
+						</faceted-datatable>
+					</div>
+					<div role="tabpanel" data-bind="visible: $component.pillMode() == 'attrition'">
+						<div class="paddedWrapper">
+							<table class="padded">
+								<thead>
+									<th>Description</th>
+									<th>Treated Persons</th>
+									<th>Comparator Persons</th>
+									<th>Treated Exposures</th>
+									<th>Comparator Exposures</th>
+								</thead>
+								<tbody data-bind="foreach:attrition">
+									<tr>
+										<td data-bind="text:description"></td>
+										<td class="numeric" data-bind="text:treatedPersons"></td>
+										<td class="numeric" data-bind="text:comparatorPersons"></td>
+										<td class="numeric" data-bind="text:treatedExposures"></td>
+										<td class="numeric" data-bind="text:comparatorExposures"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div role="tabpanel" data-bind="visible: $component.pillMode() == 'psd'">
+						<div id="psmodeldistChart">
+							<svg></svg>
+						</div>
+					</div>
+					<div role="tabpanel" data-bind="visible: $component.pillMode() == 'matched'">
+						<div id="matchedpopdistChart">
+							<svg></svg>
+						</div>
+					</div>
+					<div role="tabpanel" data-bind="visible: $component.pillMode() == 'balance'">
+						<div id="balanceChart">
+							<svg></svg>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'specification'}" class="tab-pane">
 			<div class="row">
 				<div class="col-md-8">
 					<div>
@@ -106,7 +162,7 @@
 					<div class="modal-title">Choose a Concept Set</div>
 				</div>
 				<div class="modal-body">
-					<cohort-concept-set-browser params="{onActionComplete: conceptsetSelected}"></cohort-concept-set-browser>
+					<cohort-concept-set-browser params="{onRespositoryConceptSetSelected: $component.conceptsetSelected}"></cohort-concept-set-browser>
 				</div>
 			</div>
 		</div>

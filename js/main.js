@@ -86,6 +86,7 @@ requirejs.config({
 		"d3": "d3.min",
 		"d3_tip": "d3.tip",
 		"jnj_chart": "jnj.chart",
+		"nvd3":"nv.d3",
 		"lodash": "lodash.min",
 		"lscache": "lscache.min",
 		"localStorageExtender": "localStorageExtender",

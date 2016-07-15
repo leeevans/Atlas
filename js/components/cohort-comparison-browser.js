@@ -2,7 +2,6 @@ define(['knockout', 'text!./cohort-comparison-browser.html', 'appConfig','cohort
 	function cohortComparisonBrowser(params) {
 		var self = this;
 		self.reference = ko.observableArray();
-		self.currentCohortComparison = params.currentCohortComparison;
 		self.loading = ko.observable(false);
 		self.config = config;
 

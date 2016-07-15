@@ -148,7 +148,7 @@ define(['jquery', 'knockout', 'jnj_chart', 'd3', 'ohdsi.util', 'appConfig', 'fac
 						});
 					},
 					'/cohortcomparison/:cohortComparisonId:': function (cohortComparisonId) {
-						require(['cohort-comparison-manager', 'cohort-definition-browser'], function () {
+						require(['cohort-comparison-manager', 'cohort-definition-browser', 'components/atlas.cohort-editor'], function () {
 							self.currentCohortComparisonId(cohortComparisonId)
 							self.currentView('cohortcomparison');
 						});
